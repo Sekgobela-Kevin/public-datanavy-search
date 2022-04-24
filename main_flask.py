@@ -5,7 +5,6 @@ import main
 import flask_operations
 import radial_search_local
 import users_resources
-import users_resources
 import config
 
 from flask import Flask

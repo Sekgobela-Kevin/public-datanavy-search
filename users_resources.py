@@ -65,6 +65,8 @@ class Users(object):
         module_folder = os.path.dirname(os.path.abspath(__file__))
         self.users_path = os.path.join(module_folder, 'users')
         #self.users_path = users_path
+        if(not directories.is_dir(self.users_path)):
+            directories.create_dir(self.users_path)
         self.users_paths = self.get_folders_paths()
 
     def get_users_objs(self):

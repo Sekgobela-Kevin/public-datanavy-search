@@ -6,6 +6,7 @@ Created on Wed Jun 16 17:41:18 2021
 """
 
 import spacy
+import nltk
 #from spacy.tokens import Doc
 from spacy.matcher import Matcher
 from spacy_wordnet.wordnet_annotator import WordnetAnnotator
@@ -54,6 +55,13 @@ class Spacy_setup(object):
         return self.purpose_dict[purpose].vocab
 
 spacy_setup_obj = Spacy_setup()
+## credit: https://stackoverflow.com/questions/57925041/
+# how-to-check-if-wordnet-is-already-installed
+### wordnet is used by spacy here(token._.wordnet.synsets()) on Important_token
+try:
+    nltk.find('corpora/wordnet')
+except LookupError:
+    nltk.download('wordnet')
 
 
 
