@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Datanavy search</title>
+  <meta charset="UTF-8">
+  <!--<meta name="viewport" content="width=device-width, initial-scale=0.45">-->
+  <!--<meta name="viewport" content="width=device-width, initial-scale=0.45, maximum-scale=1, minimum-scale=0.3">-->
+  <link rel="shortcut icon" type="image" href="{{ url_for('static', filename = 'asserts/logos/bright_datanavy_logo.ico')}}" />
+  <meta name="description" content="Datanavy search is a custom search engine optimized for searching text data within files, webpages and entered text. Engine searches through the resources and then returning the results if search succeeds.">
+  <meta name="keywords" content="search engine, files, text, webpages, resources, search, find, results, keywords, query, google, analysis">
+  <meta name="author" content="Sekgobela Kevin(Facebook)">
+  <meta name="google-site-verification" content="MVIDzXzSn8q32RwRfpMzhT8CpXNinVLsjsQ3EFHyrOE" />
+
+  <link rel="stylesheet" href="{{ url_for('static', filename = 'libraries/w3_css/w3.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static', filename = 'questions_answers/css/tutorial.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static', filename = 'questions_answers/css/global.css')}}">
+  <!--<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!--<script src="https://kit.fontawesome.com/9d86b7a93a.js" crossorigin="anonymous"></script>-->
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EFN4GMY2FS"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-EFN4GMY2FS');
+  </script>
+
+  <!--<script>
+    const browserErrorText = "This browser is not supported probably being older or outdated browser.\
+    \nUpdate your browser to recent version to support this application.";
+    var browser_supported = 'Promise' in window;
+    try {
+      //some ES5 and up features application uses
+      eval("function test(b=10) {}; intN = 'me'; obj ={[intN]:12, ...{}};");
+    }
+    catch(err) {
+      alert(browserErrorText);
+      document.location.href = location.protocol + '//' + location.host + location.pathname + "/guide";
+    }
+
+    if(!browser_supported){
+      $("#global-modals > #unsupported-browser").show();
+    }
+  </script>
+  -->
+  <script src="{{ url_for('static', filename = 'libraries/w3_js/w3.js')}}"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-sanitize.js"></script>
+
+
+  <script src="/static/{{js_files_folder}}/questions_answers.js" defer></script>
+  <script src="/static/{{js_files_folder}}/client_server.js" defer></script>
+  <script src="/static/{{js_files_folder}}/simplified_apis.js" defer></script>
+  <script src="/static/{{js_files_folder}}/storage.js" defer></script>
+  <script src="/static/{{js_files_folder}}/tools.js" defer></script>
+
+
+  <script src="/static/{{js_files_folder}}/knowledge_base/javascript/local_files.js" defer></script>
+  <script src="/static/{{js_files_folder}}/knowledge_base/javascript/typed_text.js" defer></script>
+  <script src="/static/{{js_files_folder}}/knowledge_base/javascript/URLs.js" defer></script>
+  <script src="/static/questions_answers/knowledge_base/javascript/knowledge_base.js"></script>
+
+  <script src="/static/{{js_files_folder}}/answers/javascript/non_interactive.js" defer></script>
+  <script src="/static/{{js_files_folder}}/answers/javascript/single.js" defer></script>
+
+
+  <style>
+    #webpage-loader {
+      font-size:200px;
+      z-index:3;
+      position:fixed;
+      top:35%;
+      left:42%;
+    }
+
+    @media only screen and (max-width: 1000px) {
+      #webpage-loader {
+        top:35%;
+        left:35%;
+      }
+    }
+
+    .css-green {
+      background-color: green;
+    }
+
+    .section-bar {
+      background-color: green;
+    }
+
+    .sections {
+      min-height: 500px;
+    }
+
+    .app-sections {
+      min-height: 500px !important;
+    }
+
+    .w3-modal-content * {
+      overflow: auto;
+    }
+
+    .w3-modal hr {
+      height: 5px;
+    }
+
+    footer a, nav a{
+        color: blue;
+    }
+
+    * {
+        word-wrap: break-word;
+    }
+
+  </style>
+
+</head>
+
+
+<body class="w3-large" ng-controller="navyCtrl">
+
+  <!-- loader displayed when webpage is loading-->
+  <div class="w3-modal w3-show">
+    <i id="webpage-loader" class="fa fa-spinner fa-spin" ></i>
+  </div>
+  <nav class="w3-bar w3-card top-stick w3-light-grey w3-border-bottom">
+    <!--<a onclick="makeVisible('body')" id="home-nav-item" class="w3-bar-item w3-button " title="Navigates screen view to the top">
+      <i class="fa fa-home w3-xlarge nav-text"></i>
+    </a>-->
+    <a onclick="makeVisible('#knowledge', 0, -70)" id="info-upload-nav-item" class="w3-bar-item  w3-text-gray w3-button w3-xlarge w3-round-large" title="Move view to resources">
+      <!--<span class="fa-stack w3-large">
+        <i class="fa fa-cog fa-spin fa-stack-2x load-show nav-text w3-hide"></i>
+        <i class="fa fa-circle-thin fa-stack-2x nav-text fa-stack-2x"></i>
+        <i class="fa fa-book nav-text fa-stack-1x"></i>
+      </span>
+      -->
+      <span class="nav-text w3-xlarge">Resources</span>
+    </a>
+    <a onclick="makeVisible('#answers', 0, -70)" id="answers-upload-nav-item" class="w3-bar-item w3-button w3-text-gray w3-xlarge w3-round-large" title="Move view to searching">
+      <!--<span class="fa-stack w3-large">
+        <i class="fa fa-cog fa-spin fa-stack-2x load-show nav-text w3-hide"></i>
+        <i class="fa fa-circle-thin nav-text fa-stack-2x normal-show"></i>
+        <i class='fa fa-search nav-text fa-stack-1x'></i>
+      </span>
+      -->
+      <span class="nav-text w3-xlarge">Search</span>
+    </a>
+    <a href="#" onclick="$('#intro').hide(100); $('#intro').show(100)" class="w3-bar-item w3-button w3-text-blue w3-xlarge w3-right w3-round-large" title="Overview to the application">
+      <!--<span class="fa-stack w3-large">
+        <i class="fa fa-circle-thin fa-stack-2x nav-text fa-stack-2x"></i>
+        <i class='fa fa-info nav-text fa-stack-1x'></i>
+      </span>
+      -->
+      <span class="nav-text w3-xlarge">Guide</span>
+    </a>
+  </nav>
+
+  <section id="main_section" class="w3-padding w3-khaki" style="min-height:90vw">
+    <div id="application-tutorial" class="w3-hide"></div>
+    <div id="application-main">
+      <div class="w3-margin-top" id="knowledge">
+        {% include 'questions_answers/knowledge_base/html/knowledge_base.html' %}
+      </div>
+
+      <hr>
+
+      <div id="answers"  ng-app="navyApp">
+        <div ng-controller="answersCtrl" ng-include="'static/questions_answers/answers/html/answers.html'">
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer class="w3-padding w3-border-top w3-center">
+    <div>&copy;copyright reserved <span class="year">2021</span>(datanavy)</div>
+    <div><a href = "mailto: kevin@datanavy.site" target="_blank">kevin@datanavy.site</a></div>
+  </footer>
+
+
+  <div id="global-modals" class="w3-xlarge">
+    <div id="intro" class="w3-modal" style="z-index: 2;">
+      <div class="w3-modal-content w3-border-white navy-border-2">
+        <div class="w3-bar w3-border-bottom w3-light-blue">
+          <div class="w3-bar-item w3-button" onclick="showTab(this,'guide-videos','guide-item')">Video</div>
+          <div class="w3-bar-item w3-button" onclick="showTab(this,'guide-slides','guide-item')">Slides</div>
+          <div class="w3-bar-item w3-button w3-right w3-hover-red exit">
+              <i class="fa fa-times"></i>
+          </div>
+        </div>
+        <div class="w3-center w3-xlarge w3-black">
+          <!--For the first time using <strong>Datanavy search</strong>, please first
+          read datanavy search short <strong>Guide</strong> located at top
+          right corner of screen.-->
+          <div id="guide-slides" class="w3-center guide-item w3-hide">
+              {% include 'guide_slides.html' %}
+          </div>
+          <div id="guide-videos" class="w3-center guide-item">
+              {% include 'guide_videos.html' %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="mobile-unsupported" class="w3-modal" style="z-index: 2;">
+      <div class="w3-modal-content w3-yellow w3-border-white navy-border-2">
+        <div class="w3-xlarge unsupported-visibility">
+          <i class="fa fa-times w3-right w3-button  w3-hover-red exit"></i>
+        </div>
+        <div class="w3-center w3-xlarge">
+          This web application is optimized for desktop devices. Some feature
+          may be unsupported or not display responsibly. <strong>Please switch
+            desktop device for best experience</strong>.
+        </div>
+      </div>
+    </div>
+
+    <div id="page-load-fail" class="w3-modal" style="z-index: 5;">
+      <div class="w3-modal-content w3-yellow w3-border-white navy-border-2">
+        <div class="w3-xlarge">
+          <i class="fa fa-times w3-right w3-button  w3-hover-red exit"></i>
+        </div>
+        <div class="w3-center w3-xlarge w3-container">
+          It is taking too long to fully load webpage. Mostly caused by
+          poor internet connections or unsupported browser. Please reload the webpage
+          or try another web browser.
+        </div>
+      </div>
+    </div>
+
+    <div id="unsupported-browser" class="w3-modal" style="z-index: 6;">
+      <div class="w3-modal-content w3-yellow w3-border-white navy-border-2">
+        <!--<div class="w3-xlarge unsupported-visibility">
+          <i class="fa fa-times w3-right w3-button  w3-hover-red exit"></i>
+        </div>
+        -->
+        <div class="w3-center w3-xlarge">
+          This browser does not support important features of the application.
+          Internet explorer and outdated browsers are not supported. Please Switch to Chrome,
+          Firefox, Edge,safari or Opera browsers.
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>

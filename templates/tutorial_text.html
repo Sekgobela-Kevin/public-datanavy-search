@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Datanavy tutorials</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename = 'libraries/w3_css/w3.css')}}">
+</head>
+<style>
+  img {
+    width: 100%;
+    max-width: 70%;
+  }
+
+  .mod-max-size {
+    min-width: 80%;
+  }
+
+  p,
+  img {
+    border-radius: 10px;
+  }
+</style>
+
+<body id="tutorial-container" class="w3-xlarge w3-khaki" style="min-width:800px;">
+  <h1 class="w3-center w3-green w3-border-bottom">DATANAVY SEARCH ENGINE</h1>
+  <p class="w3-margin w3-panel w3-light-green w3-opacity doc-into">
+    <strong>Datanavy search</strong> is a custom, <strong>local keywords-based</strong> search engine for searching files, raw text, and webpages. <strong>Local</strong> means it searches resources loaded at user side as opposed to those
+    available at the server
+    or <strong>world wide web</strong>.
+  </p>
+
+  <h2 class="w3-light-green w3-border-green w3-border-bottom">Keywords:</h2>
+  <ul class="w3-ul w3-margin w3-panel w3-light-green w3-opacity">
+    <li><strong>Query</strong> – sentence as like a question that requests for something.</li>
+    <li><strong>Search keywords</strong> – Important words within a query which the search engine uses for searching.</li>
+    <li><strong>Local</strong> – Resources in which you are the only on with access to them.</li>
+    <li><strong>Resources</strong> – Anything that supplies text data to be searched during a search</li>
+    <li><strong>Relevance</strong> – A number between 1- 100(%) representing similarity between search result and query by analysing search keywords.</li>
+  </ul>
+
+  <h2 class="w3-light-green w3-border-green w3-border-bottom">BASIC WORKFLOW</h2>
+  <div class="images-container w3-center">
+    <img src="{{ url_for('static', filename = 'asserts/tutorials/application_images/datanavy_deskop_start.png')}}" class="w3-border w3-padding" alt="Datanavy application at start">
+    <span class="w3-small w3-cursive w3-block">Datanavy search on start(Chrome desktop)</span>
+  </div>
+  <ul class="w3-ul  w3-margin w3-panel w3-light-green w3-opacity">
+    <li> <strong>Step 1:</strong> Load resources to be searched(files, raw text, URLs).</li>
+    <li> <strong>Step 2</strong>: Submit resources and ensure that they are ready for a search.</li>
+    <li><strong>Step 3</strong>: Enter search query into search field</li>
+    <li><strong>Step 4</strong>: View search results</li>
+  </ul>
+
+
+
+
+
+
+  <h2 class="w3-light-green w3-border-green w3-border-bottom">WORKFLOW DETAILED</h2>
+  <h3 class="w3-border-bottom w3-border-orange">USER INTERPHASE</h3>
+  <div class="images-container w3-center">
+    <img src="{{ url_for('static', filename = 'asserts/tutorials/application_images/datanavy_start_dialog_removed_desktop.png')}}" class="w3-border w3-padding" alt="Datanavy application at start">
+    <span class="w3-small w3-cursive w3-block">Datanavy search popup dialog removed(Chrome desktop)</span>
+  </div>
+  <p class="w3-margin w3-panel w3-light-green w3-opacity">
+    At start of the application, you are presented with a dialog that summarizes the functionality of the application. The deep orange part of the application is navigation bar with 3 items(Resources, Search, Tutorials). Navigation bar helps navigate
+    different part of application by clicking any of its items. Clicking resources item would navigate the screen to portion of application responsible for loading, uploading, and submitting of resources.
+  </p>
+  <h3 class="w3-border-bottom w3-border-orange">RESOURCES</h3>
+
+  <div class="images-container w3-center">
+    <img src="{{ url_for('static', filename = 'asserts/tutorials/application_images/datanavy_nav_resource_item_click.png')}}" class="w3-border w3-padding" alt="Datanavy application at start">
+    <span class="w3-small w3-cursive w3-block">Resource section with Resources item clicked</span>
+  </div>
+  <p class="w3-margin w3-panel w3-light-green w3-opacity">
+    <strong>Resources section</strong> is visible when starting the application. The section also contains its navigation bar with items specific to resources as opposed to application-level navigation bar. The navigation bar currently offers
+    <strong>files</strong>, <strong>texts</strong>, and
+    <strong>webpages</strong> items. Clicking any of those may change what’s displayed in the section to match selected item. By default, the resources section displays contents related to <strong>files</strong>.
+  </p>
+
+  <div class="images-container w3-center">
+    <img src="{{ url_for('static', filename = 'asserts/tutorials/application_images/datanavy_webpage_resources_empty.png')}}" class="w3-border w3-padding mod-max-size" alt="Datanavy application at start">
+    <span class="w3-small w3-cursive w3-block">Webpage item of resources section selected(Chrome desktop)</span><br>
+
+    <img src="{{ url_for('static', filename = 'asserts/tutorials/application_images/datanavy_webpage_resource_copied_pasted.png')}}" class="w3-border w3-padding" alt="Datanavy application at start">
+    <span class="w3-small w3-cursive w3-block">Hyperlink copied and pasted from built-in Google(Chrome desktop)</span><br>
+
+    <img src="{{ url_for('static', filename = 'asserts/tutorials/application_images/datanavy_webpage_resource_added.png')}}" class="w3-border w3-padding mod-max-size" alt="Datanavy application at start">
+    <span class="w3-small w3-cursive w3-block">Webpage hyperlink added but not submitted(Chrome desktop)</span><br>
+
+    <img src="{{ url_for('static', filename = 'asserts/tutorials/application_images/datanavy_webpage_resource_submited.png')}}" class="w3-border w3-padding" alt="Datanavy application at start">
+    <span class="w3-small w3-cursive w3-block">Webpage hyperlink submitted and ready for search(Chrome desktop)</span>
+  </div>
+
+  <p class="w3-margin w3-panel w3-light-green w3-opacity">
+    Below images illustrates the steps necessary to add and submit webpage resource. Also take note of the icons on top of added resource, the eye is used for enabling and disabling resource. Icon left of the eye shows the state of resource. Green
+    tick represents that resource is <strong>ready and submitted</strong>.
+  </p>
+
+  <p class="w3-margin w3-panel w3-light-green w3-opacity">
+    Resources that are disabled or not ready for search are not taken into consideration when searching. To get more information of icon, just hover mouse cursor into it and a tooltip would appear. The same does applies to loading raw text, and
+    files.
+  </p>
+
+  <h3 class="w3-border-bottom w3-border-orange">SEARCH</h3>
+  <p class="w3-margin w3-panel w3-light-green w3-opacity">
+    Now with our Wikipedia photosynthesis webpage loaded, it’s time to perform a search to see how datanavy search works. To visit search section, click search on application navigation bar and the browser screen will move to section responsible for
+    searching.
+  </p>
+
+  <div class="images-container w3-center">
+    <img src="{{ url_for('static', filename = 'asserts/tutorials/application_images/search-section-untouched.png')}}" class="w3-border w3-padding mod-max-size" alt="Datanavy application at start">
+    <span class="w3-small w3-cursive w3-block">Search section without search query(Chrome desktop)</span><br>
+  </div>
+
+  <p class="w3-margin w3-panel w3-light-green w3-opacity">
+    To start searching, you would need to enter a search query. The search query should be rich of relevant keywords with no spelling errors. Remember that datanavy search is keywords based and under development.
+  </p>
+
+
+
+  <div class="images-container w3-center">
+    <img src="{{ url_for('static', filename = 'asserts/tutorials/application_images/search-search-query-typed.png')}}" class="w3-border w3-padding" alt="Datanavy application at start">
+    <span class="w3-small w3-cursive w3-block">Search with query entered(Chrome desktop)</span>
+  </div>
+
+  <p class="w3-margin w3-panel w3-light-green w3-opacity">
+    Please note that only keywords in the entered sentence(query) are part of search. The rest of the words have no significance in the search.
+  </p>
+  <p class="w3-margin w3-panel w3-light-green w3-opacity">
+    Keywords from above query may be <strong>process</strong>, <strong>photosynthesis</strong> and <strong>plants</strong>. All of which are detected using <strong>machine learning and artificial intelligence</strong> combined with knowledge of
+    English.
+  </p>
+
+
+  <div class="images-container w3-center">
+    <img src="{{ url_for('static', filename = 'asserts/tutorials/application_images/search-section-query-analysis.png')}}" class="w3-border w3-padding" alt="Datanavy application at start">
+    <span class="w3-small w3-cursive w3-block">Search query analysis(Chrome desktop)</span>
+  </div>
+
+  <p class="w3-margin w3-panel w3-light-green w3-opacity">
+    Image above displays results of search query analysis. Bolded words in yellow background represent keywords. <strong>Parts of speech</strong>, <strong>synonyms</strong> and other <strong>English</strong> language features.
+  </p> <strong></strong>
+
+  <p class="w3-margin w3-panel w3-light-green w3-opacity">
+    Sometimes it may be <strong>slow</strong> to get search <strong>query analysis</strong> due to <strong>complex computations</strong>. The analysis may be used for wide variety of things other than <strong>optimizing</strong> search query.
+  </p>
+
+  <div class="images-container w3-center">
+    <img src="{{ url_for('static', filename = 'asserts/tutorials/application_images/search-section-search-ready-resources.png')}}" class="w3-border w3-padding" alt="Datanavy application at start">
+    <span class="w3-small w3-cursive w3-block">Search ready resources information(Chrome desktop)</span>
+  </div>
+
+  <p class="w3-margin w3-panel w3-light-green w3-opacity">
+    Image above displays <strong>search ready</strong> resources directly into resource section. Any resource listed is part of a search, if you want to <strong>include</strong> or <strong>exclude</strong> a resource then you should do it in
+    <strong>resources section</strong>.
+  </p> <strong></strong>
+
+  <p class="w3-margin w3-panel w3-light-green w3-opacity">
+    <strong>Name</strong>, <strong>type</strong>, <strong>length in words</strong>, <strong>length in characters</strong> and whether the resource is <strong>processed</strong> are displayed. The listed data may determine how long the search may
+    take with <strong>larger resources</strong> like files taking long to be searched.
+  </p>
+
+  <p class="w3-margin w3-panel w3-light-green w3-opacity">
+    <strong>Processed</strong> resources are resources that are already processed and saved. Processed resources get searched <strong>faster</strong> than not raw resources due to their optimised nature. Resources get processed the <strong>first
+      time</strong> they are searched
+    which means <strong>first search</strong> is slow compared to following searches.
+  </p>
+
+  <div class="images-container w3-center">
+    <img src="{{ url_for('static', filename = 'asserts/tutorials/application_images/search-section-search-settings.png')}}" class="w3-border w3-padding" alt="Datanavy application at start">
+    <span class="w3-small w3-cursive w3-block">Search settings(Chrome desktop)</span>
+  </div>
+
+  <ul class="w3-ul  w3-margin w3-panel w3-light-green w3-opacity">
+    <li><strong>Minimum relevance</strong> - Excludes results with relevance less than the value :: default: 50%</li>
+    <li><strong>Maximum results</strong> - Sets maximum limit on number of results search should return :: default: 100000</li>
+    <li><strong>Results per view</strong> - Set maximum results that can be displayed in a view :: default: 4</li>
+    <li><strong>Search all resources</strong> - Searches all resources including disabled ones :: default: <i>inactive</i></li>
+    <li><strong>First results only</strong> - Discards all results that cannot fit into the view leaving default: <i>inactive</i></li>
+  </ul>
+  <p class="w3-margin w3-panel w3-light-green w3-opacity">
+    One last thing before searching is checking <strong>search settings</strong>. Settings allows you to filter the <strong>search results</strong> instead of search engine deciding for you. The settings can also be changed after searching yet
+    <strong>filtering</strong> the <strong>search results</strong>.
+  </p>
+
+
+  <div class="images-container w3-center">
+    <img src="{{ url_for('static', filename = 'asserts/tutorials/application_images/search-search-query-searched.png')}}" class="w3-border w3-padding" alt="Datanavy application at start">
+    <span class="w3-small w3-cursive w3-block">search results after clicking search button(Chrome desktop)</span>
+  </div>
+  <p class="w3-margin w3-panel w3-light-green w3-opacity">
+    Now click search button and see magic. After searching 4 search results appear with the rest excluded. Remember <strong>Results per view</strong> in settings, you can change search <strong>results view</strong> using the numbers at top of
+    results.
+  </p>
+
+
+
+  <p class="w3-margin w3-panel w3-light-green w3-opacity">
+    Number in red circle represent <strong>search relevance</strong> displayed search result having relevance of 99%. Relevance is <strong>higher as all keywords</strong> have been matched. Relevance is too <strong>dependent on keywords</strong>.
+  </p>
+
+  <p class="w3-margin w3-panel w3-light-green w3-opacity">
+    Note the white area at bottom of search result. It functions as to display the resource in which the result was extracted from. Our result was extracted from Wikipedia photosynthesis webpage which is the <strong>webpage</strong> uploaded in
+    resource section.
+  </p>
+
+  <p class="w3-margin w3-panel w3-light-green w3-opacity">
+    Bolded words represent <strong>keywords</strong> from <strong>search query</strong> and <strong>yellow</strong> part represent text surrounding the <strong>keywords</strong>. <strong>Brown</strong> part represent <strong>section on which result
+      was extracted from</strong>.
+  </p>
+
+  <div class="images-container w3-center">
+    <img src="{{ url_for('static', filename = 'asserts/tutorials/application_images/search-result-resource-full-highlight.png')}}" class="w3-border w3-padding" alt="Datanavy application at start">
+    <span class="w3-small w3-cursive w3-block">search result viewed from its resource(Chrome desktop)</span>
+  </div>
+  <p class="w3-margin w3-panel w3-light-green w3-opacity">
+    Click expand icon at bottom right of result to view the search full within its resource. Currently the resource is in text form performance purposes. Now you can easily spot which part of resource the search result was extracted from.
+  </p>
+
+  <p class="w3-margin w3-panel w3-light-green w3-opacity">
+    You could also copy the search result to clipboard by clicking copy icon on bottom left of search result.
+  </p>
+
+
+  <h2 class="w3-light-green w3-border-green w3-border-bottom">FEATURES</h2>
+  <p class="w3-margin w3-panel w3-light-green w3-opacity">
+    Note that the application is using custom search algorithm which is under development. The application both at server and client is under development with new feature tested on daily basis.
+  </p>
+  <p class="w3-margin w3-panel w3-light-green w3-opacity">
+    Every feature in the application took lot of efforts to build and incorporate with other features. New feature will be added with datanavy not limited to search engine developed further.
+  </p>
+  <p class="w3-margin w3-panel w3-light-green w3-opacity">
+    The search engine support extracting of data from <strong>pdf</strong>, <strong>pptx</strong>, <strong>docx</strong> and <strong>text</strong>(not limited to *.TXT) files. Files are very slow to be extracted especially larger pdf. In rare cases,
+    a file may not be extracted but it that has never been reported or spotted.
+  </p>
+  <p class="w3-margin w3-panel w3-light-green w3-opacity">
+    Also supports webpages as resource giving ability to use rich internet data for searching. The search engine uses the supplied URL to locate and extract webpage from its location in the world wide web.
+  </p>
+  <p class="w3-margin w3-panel w3-light-green w3-opacity">
+    Traditional typing is also supported for those with text data in their fingertips or clipboard. It’s better to use clipboard than manually typing(impractical). This is the fastest method of loading a resource compared to webpages and files.
+  </p>
+
+  <p class="w3-margin w3-panel w3-light-green w3-opacity">
+    For searching, it is build-in with Google. The Google search within is called Google search console built by Google ink to offer web applications access to Google. Its purpose is to give access to Google search and provide webpage URLs to be used
+    as resources.
+  </p>
+
+
+  <p class="w3-margin w3-panel w3-light-green w3-opacity">
+    Supports sentence analysis with search query analysis. This feature extract linguistic features of sentence(query) such as synonyms, parts of speech(precise),categories identification, keywords detection, stop word detection, entity recognition
+    and much more. Search query analysis was strictly intended for keywords identification and search query optimization to improve search results relevance.
+  </p>
+
+  <p class="w3-margin w3-panel w3-light-green w3-opacity">
+    Application offers powerful is highlighting, both the keywords and the text within search result are highlighted using different colours. This gives an opportunity to know which keywords were matched and how they relate to each other within the
+    matched sentence/paragraph.
+  </p>
+  <p class="w3-margin w3-panel w3-light-green w3-opacity">
+    Another powerful feature is ability to view the result within its original resource. It makes it easier to locate which part of resource text the result came from. Relevance for each search result is displayed on top of the search results.
+  </p>
+
+  <p class="w3-margin w3-panel w3-light-green w3-opacity">Search results can be customized such as setting minimum relevance and other settings affecting display of search results. It all depends on how strict you expect the search to be, setting
+    high minimum relevance means that more result would be filtered out leaving less results and setting minimum relevance of 1% would include wide variety of results.
+  </p>
+
+
+
+  <h2 class="w3-light-green w3-border-green w3-border-bottom">COMPARING TO WEB SEARCH ENGINES</h2>
+  <p class="w3-margin w3-panel w3-light-green w3-opacity">
+    The search engine does not in any way compete with advanced search engines(Google, Bing, etc.). But it offers an opportunity to have control of what to be searched. The application contains built-in Google to help offer features of advanced
+    search
+    engines. Google was designed to use advanced technologies for searching the whole web in short time with much higher relevance. Datanavy was designed for using keywords to try to locate which parts of loaded text query matched.
+  </p>
+
+  <p class="w3-margin w3-panel w3-light-green w3-opacity">Web search engines search millions of documents and support wide variety of sources including images, videos, audios and much more. For something very powerful, web search engines as Google
+    are necessary for those tasks. They can search billions of
+    webpages in less than a second using powerful servers and algorithms. They are also based on context not on keywords giving them an opportunity find the best match to query. Datanavy search is using custom search algorithm which is currently
+    keywords based but it’s still under development.</p>
+
+  <p class="w3-margin w3-panel w3-light-green w3-opacity">Because the is very rich with data, that is why webpages are supported as resource/source. You will use your own search engine and then Copy (Ctrl + C) and Paste (Ctrl +V) hyperlink into the
+    application. That way you will be combining the power of
+    web search engines with Datanavy search.
+  </p>
+
+
+</body>
+
+</html>

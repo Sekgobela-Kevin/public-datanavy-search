@@ -1,0 +1,64 @@
+<div class="w3-padding w3-margin-bottom">
+  <div id="knowledge_typed_progress_bar" class="w3-hide">
+    <div class="w3-light-grey w3-display-bottom  w3-border outer">
+      <div class="w3-center w3-green fill" style="width:0; height:25px;">
+        <span class="w3-small w3-hide"></span>
+      </div>
+    </div>
+    <div class="w3-center w3-tiny text"></div>
+  </div>
+
+  <div id="knowledge-typed-alert" class="w3-margin-bottom">
+    <div class="w3-panel alert-one w3-blue navy-border-3 w3-border-white">
+      <h4></h4>
+      <p class="w3-center"></p>
+    </div>
+    <div class="w3-panel alert-two w3-yellow navy-border-3 w3-border-white w3-hide">
+      <h4></h4>
+      <p class="w3-center">Raw text is limited to up to 30</p>
+    </div>
+  </div>
+
+  <div id="knowledge_type_init">
+  </div>
+  <div class="w3-padding navy-border-2 w3-light-gray w3-round">
+    <textarea id="knowledge_type_text_input_source" cols="30" rows="1"
+      class="w3-input w3-border w3-margin-bottom w3-round-small" placeholder="Enter title of the text"
+      style="resize: none;"></textarea>
+    <textarea id="knowledge_type_text_input" cols="30" rows="10" class="w3-input w3-border w3-round-small"
+      placeholder="Enter text here!" style="resize: none;"></textarea>
+
+    <div class="w3-center w3-margin-top">
+      <button id="knowledge_typed_adding_button" class="w3-button w3-deep-orange w3-xlarge w3-round">Add</button>
+      <button id="knowledge_typed_submit" type="button"
+        class="w3-button w3-xlarge w3-green w3-display-container w3-round">Submit</button>
+    </div>
+  </div>
+
+  <div id="knowledge_text_preview_container" class="w3-padding navy-border-2 w3-light-gray w3-margin-top w3-round">
+    <div id="knowledge_text_preview" class="w3-margin-top" style="max-heightX:500px; overflow: auto;">
+      <div class="" w3-repeat="typedKnowledgeData">
+        <div class="w3-brown w3-margin-bottom w3-round">
+          <div class="w3-bar w3-border-bottom">
+            <div class="w3-bar-item w3-xlarge">{% raw %}{{readyStateIcon}}{% endraw %}</div>
+            <div class="w3-bar-item w3-xlarge"
+              onclick="knowledgeTypedTextDisplay.computeActiveState('{% raw %}{{source}}{% endraw %}')">{% raw %}
+              {{statusCheckBoxIcon}}{% endraw %}</div>
+            <div class="w3-bar-item w3-xlarge w3-hide">{% raw %}{{length}}{% endraw %}</div>
+            <div class="w3-bar-item w3-button w3-xlarge w3-hover-red  w3-right" title="Remove resource"
+              onclick="knowledgeTypedTextDisplay.removeKnowledge('{% raw %}{{source}}{% endraw %}');">
+              <i class="fa fa-times"></i>
+            </div>
+          </div>
+          <div class="w3-padding" style="word-wrap: break-word; max-height:150px;">
+            <div class="w3-center">{% raw %}{{source}}{% endraw %}</div>
+            <div>
+              {% raw %}{{fullText}}{% endraw %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,110 @@
+<div class="w3-padding">
+  <div id="answers_non_interactive_progress_bar" class="w3-hide">
+    <div class="w3-light-grey w3-display-bottom  w3-border outer">
+      <div class="w3-center w3-green fill" style="width:0; height:25px;">
+        <span class="w3-small w3-hide"></span>
+      </div>
+    </div>
+    <div class="w3-center w3-tiny text"></div>
+  </div>
+
+  <div id="answers-multiple-alert">
+    <div class="w3-panel alert-one w3-blue navy-border-3 w3-border-white">
+      <h4></h4>
+      <p class="w3-center">Press search to perform a search using previously loaded resources and queries.</p>
+    </div>
+    <div class="w3-panel alert-two w3-yellow navy-border-3 w3-border-white w3-hide">
+      <h4></h4>
+      <p class="w3-center">At fist searching may take time while processing resources</p>
+  </div>
+
+
+  <!--Container for search button shownn when no results/answers-->
+  <div ng-show="answersData.length === 0 ">
+    <div class="w3-padding w3-center w3-light-gray navy-border-2 w3-round">
+      <button class="w3-button w3-orange w3-xlarge w3-round answers_non_interactive_load_buttons">
+        <i class='fa fa-search nav-text w3-xlarge' style="font-size:30px"></i>
+        <span class="nav-text w3-large">Search</span>
+      </button>
+    </div>
+  </div>
+
+
+  <!--Container for search button-->
+  <div class="w3-margin-bottom w3-light-gray navy-border-2 w3-round" ng-show="answersData.length > 0">
+    <div class="w3-center w3-padding">
+      <button class="w3-button w3-orange w3-xlarge w3-round answers_non_interactive_load_buttons">
+        <i class='fa fa-search nav-text w3-xlarge' style="font-size:30px"></i>
+        <span class="nav-text w3-large">Search</span>
+      </button>
+    </div>
+  </div>
+
+  <div id="non_interactive_answers_display_container" class="w3-padding w3-margin-bottom w3-light-gray navy-border-2 w3-round" ng-show="answersData.length > 0 ">
+    <div class="w3-bar w3-bottombar">
+      <div class="w3-bar-item w3-small nav-text">Found: {{getTotalAnswered()}}/{{answersData.length}}</div>
+      <div class="w3-bar-item w3-small nav-text">Average: {{getAnswersAverageRelevance().toFixed(2)}}%</div>
+    </div>
+
+    <div id="non_interactive_answers_display_repeat_container" class="w3-margin-bottom">
+      <div class="answer-display w3-margin-top" ng-repeat="answer in answersData">
+        <div class="w3-round w3-green" class="w3-card" style="overflow:hidden;">
+          <div class="w3-bar w3-border-bottom">
+            <div class="w3-bar-item" onclick="
+
+            var currentRecommends = $(this).parents('.answer-display').find('.recommends');
+            var allRecommends = $( '#non_interactive_answers_display_repeat_container').find('.recommends');
+            allRecommends.not(currentRecommends).hide(); currentRecommends.toggle();"><i class='fa fa-chevron-circle-down w3-text-black'></i></div>
+            <div class="w3-bar-item w3-left w3-tiny  w3-center">Status: {{getTotalRecommends(answer.recommends)}} result(s)</div>
+            <div class="w3-bar-item w3-circle w3-tiny  w3-center" style="display:inline">Relevance: {{answer.relevance.toFixed(2)}}%</div>
+            <div class="w3-bar-item w3-right"><i class="fa fa-times w3-button nav-text w3-right"></i></div>
+          </div>
+          <div class="w3-container w3-brown">
+            <span class="w3-left">{{answer.question}}</span>
+          </div>
+        </div>
+        <div class="recommends w3-margin-bottom">
+          <div ng-repeat="recommend in getActiveRecommends(answer) track by $index" class="w3-margin-top">
+            <div class="w3-margin-left w3-teal w3-round">
+              <div class="w3-bar w3-border-bottom">
+                <div class="w3-bar-item w3-left w3-tiny w3-center">relevance: {{recommend.relevance.toFixed(2)}}%</div>
+                <div class="w3-bar-item w3-right"><i class="fa fa-times w3-button nav-text"></i></div>
+              </div>
+              <div class="w3-leftbar w3-border-black w3-brown">
+                <i class="fa fa-quote-right w3-text-black"></i>
+                <span ng-bind-html="getFullTextWithHeighLight(recommend)"></span>
+              </div>
+              <div class="w3-leftbar w3-border-gray w3-brown">
+                <span ng-bind-html="getSource(recommend)"></span>
+              </div>
+              <div class="w3-bar">
+                <div class="w3-bar-item w3-left"><i class='fa fa-book'></i></div>
+                <div class="w3-bar-item w3-left"><i class='fa fa-question-circle'></i></div>
+                <div class="w3-bar-item w3-right"><i class='fa fa-expand-arrows-alt'></i></div>
+                <div class="w3-bar-item w3-right"><i class='fa fa-external-link-alt'></i></div>
+              </div>
+            </div>
+          </div>
+          <div class="w3-center" ng-if="answer.groupedRecommends.length > 1 || true">
+            <div class="w3-bar w3-margin-top">
+
+              <span class="w3-bar-item w3-button" ng-click="setActiveRecommendsRelative(answer, -1);" ng-hide="answer.activeRecommends <= 0" onclick="
+                $(this).siblings().children().removeClass('w3-green');
+                $(this).siblings().children('.'+(angular.element(this).scope().answer.activeRecommends)).parent().children().addClass('w3-green');">
+                &laquo;</span>
+
+              <span ng-repeat="RecommendsIndex in getRecommendsPaginationIndexes(answer)">
+                <span class="w3-bar-item w3-button {{RecommendsIndex+1}}" ng-click="setActiveRecommends(answer, RecommendsIndex);"
+                  onclick="$(this).parent().siblings().children().removeClass('w3-green'); $(this).parent().children().addClass('w3-green');">{{RecommendsIndex+1}}</span>
+              </span>
+              <span class="w3-bar-item w3-button" ng-click="setActiveRecommendsRelative(answer, 1)" ng-hide="answer.activeRecommends >=  answer.groupedRecommends.length-1" onclick="
+              $(this).siblings().children().removeClass('w3-green');
+              $(this).siblings().children('.'+(angular.element(this).scope().answer.activeRecommends+2)).parent().children().addClass('w3-green');">&raquo;</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="/static/questions_answers/answers/javascript/non_interactive.js"></script>
+</div>

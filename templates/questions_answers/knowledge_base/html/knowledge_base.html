@@ -1,0 +1,36 @@
+<div class="w3-border w3-pale-green w3-margin-bottom">
+  <div class="w3-bar knowledges-bar section-bar w3-border-bottom w3-blue">
+    <div class="w3-bar-item w3-button " onclick="showTab(this,'knowledge_local_files','knowledge_tabs')" title="Upload (pdf, docx, pptx) files from local storage">
+      <i class="fa fa-file-o nav-text w3-xlarge" style="font-size:30px"></i>
+      <span class="nav-text w3-large">Files</span>
+    </div>
+    <div class="w3-bar-item w3-button " onclick="showTab(this,'knowledge_type','knowledge_tabs')" title="Manually enter text using keyboard or copy from clipboard">
+      <i class="fa fa-keyboard-o nav-text w3-xlarge" style="font-size:30px"></i>
+      <span class="nav-text w3-large">Texts</span>
+    </div>
+    <div class="w3-bar-item w3-button " onclick="showTab(this,'knowledge_URLs','knowledge_tabs')" title="Supply internet hyperlinks(urls) that link to active webpages">
+      <i class="fa fa-globe nav-text w3-xlarge" style="font-size:30px"></i>
+      <span class="nav-text w3-large">Webpages</span>
+    </div>
+    <!-- since 'XX--Fake--XX' id does not exist, other tabs with class 'knowledge_tabs' will be hidden-->
+    <div class="w3-bar-item w3-right w3-text-black collapse" onclick="$('#knowledge-tabs-container, #info-upload-nav-item').toggle();" title="Collapse/open section">
+      <i class='fa fa-chevron-circle-down nav-text w3-xlarge'></i>
+    </div>
+    <div class="w3-bar-item w3-right w3-text-gray label w3-hide-small">
+      <!--<i class="fa fa-book nav-text w3-xlarge"></i>-->
+      <span class="nav-text w3-large" style="display:inline-block; height:100%;">Resources</span>
+    </div>
+  </div>
+
+  <div id="knowledge-tabs-container" class="knowledge-tabs-bodies sections" style="min-height: 600px">
+    <div id="knowledge_type" class="knowledge_tabs w3-hide">
+      {% include 'questions_answers/knowledge_base/html/typed_text.html' %}
+    </div>
+    <div id="knowledge_URLs" class="knowledge_tabs w3-hide">
+      {% include 'questions_answers/knowledge_base/html/URLs.html' %}
+    </div>
+    <div id="knowledge_local_files" class="knowledge_tabs">
+      {% include 'questions_answers/knowledge_base/html/local_files.html' %}
+    </div>
+  </div>
+</div>

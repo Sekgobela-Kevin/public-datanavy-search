@@ -1,0 +1,505 @@
+<div class="w3-padding">
+
+  <div id="answers_single_progress_bar" class="w3-hide">
+    <div class="w3-light-grey w3-display-bottom  w3-border outer">
+      <div class="w3-center w3-green fill" style="width:0; height:25px;">
+        <span class="w3-small w3-hide"></span>
+      </div>
+    </div>
+    <div class="w3-center w3-tiny text"></div>
+  </div>
+
+  <div id="answers-single-alert">
+    <div class="w3-panel alert-one w3-blue navy-border-3 w3-border-white">
+      <h4></h4>
+      <p class="w3-center"></p>
+    </div>
+    <div class="w3-panel alert-two w3-yellow navy-border-3 w3-border-white w3-hide">
+      <h4></h4>
+      <p class="w3-center">At fist searching may take time while processing resources</p>
+    </div>
+  </div>
+
+  <!-- search input and configuration bar elements -->
+  <div class="w3-margin-bottom w3-light-gray navy-border-2 w3-round w3-margin-top">
+
+    <!-- search input elements -->
+    <input type="text" id="answers-single-question-input" class="w3-input w3-border w3-round-small" ng-model="singleInputQuery" placeholder="Enter search query here!" style="resize: none;" max="300" />
+
+    <!-- future search info navigation bar -->
+    <div class="w3-bar">
+      <div class="w3-bar-item w3-button w3-light-gray w3-left" onclick="var recommendModal = $('#single-future-modals .knowledges-future-data-modal'); recommendModal.show();" ng-click='updateResourcesSources("singleFutureResourcesSources");'>
+        <i class='fa fa-book'></i>
+      </div>
+      <div class="w3-bar-item w3-button w3-tooltip w3-left" onclick="var recommendModal = $('#single-future-modals .single-future-query-analysis-modal'); recommendModal.show();" ng-click="updateQueriesAnalysis('singleFutureQueriesAnalysis')">
+        <i class='fa fa-question-circle-o'></i>
+      </div>
+      <div class="w3-bar-item w3-button w3-right" ng-click="syncSettings('singleFutureSettings')" onclick="var recommendModal = $('#single-future-modals .single-future-settings-modal'); recommendModal.show();">
+        <i class='fa fa-cog'></i>
+      </div>
+    </div>
+
+    <div class="w3-center w3-padding">
+      <button id="answers-single-search-button" class="w3-button w3-orange w3-xlarge w3-round">
+        <i class="fa fa-circle-o-notch fa-spin nav-text w3-xlarge"></i>
+        <i class='fa fa-search nav-text w3-xlarge'></i>
+        <span class="nav-text search-text w3-large">Search</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- search results container -->
+  <div id="single_answers_display_container" class="w3-padding w3-margin-bottom
+   w3-light-gray navy-border-2 w3-round" ng-if="Object.keys(getSingleAnswerObj()).length > 0">
+
+    <!-- present search infor navigation bar -->
+    <div class="w3-bar">
+      <div class="w3-bar-item w3-button w3-light-gray w3-left" onclick="var recommendModal = $('#single-present-modals .knowledges-present-data-modal'); recommendModal.show();"
+        ng-click='updateResourcesSources("singlePresentResourcesSources", getSingleAnswerObj().searched_knowledges);'>
+        <i class='fa fa-book'></i>
+      </div>
+      <div class="w3-bar-item w3-button w3-tooltip w3-left" onclick="var recommendModal = $('#single-present-modals .single-present-query-analysis-modal'); recommendModal.show();"
+        ng-click="updateQueriesAnalysis('singlePresentQueriesAnalysis', getSingleAnswerObj().question)">
+        <i class='fa fa-question-circle-o'></i>
+      </div>
+      <div class="w3-bar-item w3-button w3-right" ng-click="syncSettings('singlePresentSettings')" onclick="var recommendModal = $('#single-present-modals .single-present-settings-modal'); recommendModal.show();">
+        <i class='fa fa-cog'></i>
+      </div>
+    </div>
+
+
+    <div id="single-results-host" ng-if="getSingleAnswerObj().groupedRecommends.length > 0">
+      <!-- pagination for search results -->
+      <div class="w3-center">
+        <!-- show user hidden results when user press results pagination-->
+        <div class="w3-bar w3-margin-top" onclick="$('#single_answers_display_container').find('.recommend').show()">
+
+          <span class="w3-bar-item w3-button w3-border pagination-back" ng-click="setActiveRecommendsRelative(getSingleAnswerObj(), -1);" ng-hide="getSingleAnswerObj().activeRecommends <= 0" >
+            &laquo;</span>
+
+          <span ng-repeat="RecommendsIndex in getRecommendsPaginationIndexes(getSingleAnswerObj())">
+            <span class="w3-bar-item w3-border w3-button  pagination-select {% raw %}{{RecommendsIndex+1}}{% endraw %} {% raw %}{{getPaginationClass(RecommendsIndex)}}{% endraw %}" ng-click="setActiveRecommends(getSingleAnswerObj(), RecommendsIndex);"
+              ng-if='RecommendsIndex !== 0 || RecommendsIndex !== getSingleAnswerObj().groupedRecommends.length-1'
+              >{% raw %}{{RecommendsIndex+1}}{% endraw %}</span>
+          </span>
+          <span class="w3-bar-item w3-border w3-button pagination-forward" ng-click="setActiveRecommendsRelative(getSingleAnswerObj(), 1)" ng-hide="getSingleAnswerObj().activeRecommends >=  getSingleAnswerObj().groupedRecommends.length-1">&raquo;</span>
+        </div>
+      </div>
+
+      <div class="w3-margin-bottom" ng-if="getSingleAnswerObj().recommends.length > 0 ">
+        <div class="recommends w3-margin-bottom">
+          <!-- only results from single question required-->
+          <div ng-repeat="recommend in getActiveRecommends(getSingleAnswerObj()) track by $index" class="w3-margin-top">
+            <div class="w3-teal recommend">
+              <div class="w3-bar w3-border-bottom">
+                <div class="w3-bar-item w3-center">
+                  <span class="w3-badge w3-red w3-large">{% raw %}{{(recommend.relevance*100).toFixed(0)}}{% endraw %}</span>
+                </div>
+              </div>
+              <div class="w3-leftbar w3-border-black w3-brown">
+                <i class="fa fa-quote-right w3-text-black"></i>
+                <span ng-bind-html="getFullTextWithHeighLight(recommend)"></span>
+              </div>
+
+              <div class="w3-leftbar w3-border-gray w3-white">
+                <strong class="w3-text-blue">{% raw %}{{getSource(recommend)}}{% endraw %}</strong>
+              </div>
+
+              <div class="w3-bar">
+                <div class='w3-bar-item w3-button' ng-click="copyRecomentToClipBoard(recommend)">
+                  <i class='fa fa-copy'></i>
+                </div>
+                <div class="w3-bar-item w3-button w3-right"
+                  onclick="var knowledgesModal = $(this).parents('.recommend').find('.knowledge-full-modal'); knowledgesModal.show(); var textFullElem = knowledgesModal.find('.navy-answer-full-text'); scrollToView(textFullElem, 0, 0, knowledgesModal); console.log('clicked')">
+                  <i class='fa fa-expand'></i>
+                </div>
+              </div>
+
+              <!-- modal for knowledge in full-->
+              <div class="w3-modal w3-animate-opacity knowledge-full-modal w3-margin">
+                <div class="w3-modal-content w3-card-4 w3-light-grey" style="max-width: 80vw; overflow:auto;">
+                  <div class="w3-bar">
+                    <div class="w3-bar-item w3-button w3-right w3-hover-red" onclick="$(this).parents('.w3-modal').hide()">
+                      <i class="fa fa-times w3-xlarge"></i>
+                    </div>
+                  </div>
+                  <div class="w3-padding">
+                    <h4 class="w3-text-blue w3-center">{% raw %}{{getSource(recommend)}}{% endraw %}</h4>
+                    <div class="w3-text-black" ng-bind-html="getKnowledgeTextWithHeighLight(recommend)"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Present single modal -->
+    <div id="single-present-modals">
+      <!-- modal for showing present knowledges/resources data-->
+      <div class="w3-modal w3-display-container w3-animate-opacity knowledges-present-data-modal">
+        <div class="w3-modal-content w3-card-4 w3-khaki">
+          <div class="w3-bar">
+            <div class="w3-bar-item w3-button w3-right w3-hover-red" onclick="$(this).parents('.w3-modal').hide()">
+              <i class="fa fa-times w3-xlarge"></i>
+            </div>
+          </div>
+
+          <!-- contents -->
+          <div class="w3-padding contents" ng-show="dataMap.singlePresentResourcesSources.length > 0">
+            <h4 class="w3-center">Search results resources</h4>
+            <hr>
+            <table class='w3-table-all w3-hoverable w3-centered'>
+              <thead>
+                <tr class="w3-green">
+                  <th>Index</th>
+                  <th>Name</th>
+                  <th>Type</th>
+                  <th>processed</th>
+                  <th>length(char)</th>
+                  <th>length(words)</th>
+                </tr>
+              </thead>
+              <tr ng-repeat="sourceData in dataMap.singlePresentResourcesSources">
+                <td>{% raw %}{{ $index + 1 }}{% endraw %}</td>
+                <td>{% raw %}{{ sourceData.source }}{% endraw %}</td>
+                <td>
+                  <span ng-if="sourceData.type">{% raw %}{{ sourceData.type }}{% endraw %}</span>
+                  <i ng-if="!sourceData.type" class="fa fa-times w3-text-red"></i>
+                </td>
+                <td>
+                  <i ng-if="sourceData.isProcessed" class='fa fa-check w3-text-green'></i>
+                  <i ng-if="!sourceData.isProcessed" class="fa fa-times w3-text-red"></i>
+                </td>
+                <td>{% raw %}{{ sourceData.charLength }}{% endraw %}</td>
+                <td>{% raw %}{{ sourceData.wordsLength }}{% endraw %}</td>
+              </tr>
+            </table>
+          </div>
+
+          <!-- --------alerts------------ -->
+          <div class="alerts w3-padding">
+            <div class="w3-panel w3-margin alert-one w3-red navy-border-3 w3-border-white" ng-show="dataMap.singlePresentResourcesSources.length == 0">
+              <h4></h4>
+              <p class="w3-center">Search results are missing search resources. There may be problems with display or error  at server. This is caused by an error in our side.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- modal for present query analysis -->
+      <div class="w3-modal w3-animate-opacity single-present-query-analysis-modal">
+        <div class="loader"></div>
+        <div class="w3-modal-content w3-khaki w3-card-4" style="min-height: 50vh;">
+          <div class="w3-bar">
+            <div class="w3-bar-item w3-button w3-hover-red w3-right" onclick="$(this).parents('.w3-modal').hide()">
+              <i class="fa fa-times w3-xlarge"></i>
+            </div>
+          </div>
+
+          <!-- --------contents------------ -->
+          <div class="w3-padding contents">
+            <h3 class="w3-center">Search results query analysis</h3>
+            <hr class="w3-large">
+            <div ng-repeat="(query, data) in dataMap.singlePresentQueriesAnalysis">
+              <h5 class="w3-center w3-padding w3-yellow" ng-bind-html="data.queryTextHihlihted"></h5>
+              <div>
+                <strong>**</strong>Bolded words(<i>{% raw %}{{data.keywords.length}}{% endraw %}</i>) represent
+                <i>search keywords</i><br>
+                <strong>**</strong>The <i>search engine</i> is keywords based<br>
+              </div>
+              <table class='w3-table-all w3-margin-top w3-hoverable w3-centered'>
+                <thead>
+                  <tr class="w3-green">
+                    <th>Index</th>
+                    <th>Word</th>
+                    <th>Is keyword</th>
+                    <th>Is Stop word</th>
+                    <th>Part of speech</th>
+                    <th>Part of speech(context)</th>
+                    <th>Dependency type</th>
+                    <th>Entity type</th>
+                    <th>Synonyms</th>
+                  </tr>
+                </thead>
+                <tr ng-repeat="wordData in data.wordsData">
+                  <td>{% raw %}{{$index + 1}}{% endraw %}</td>
+                  <td>
+                    <strong ng-if="data.keywords.includes(wordData.word)">{% raw %}{{wordData.word}}{% endraw %}</strong>
+                    <span ng-if="!data.keywords.includes(wordData.word)">{% raw %}{{wordData.word}}{% endraw %}</span>
+                  </td>
+                  <td>
+                    <i ng-if="wordData.is_keyword" class='fa fa-check w3-text-green'></i>
+                    <i ng-if="!wordData.is_keyword" class="fa fa-times w3-text-red"></i>
+                  </td>
+                  <td>
+                    <i ng-if="wordData.is_stop" class='fa fa-check w3-text-green'></i>
+                    <i ng-if="!wordData.is_stop" class="fa fa-times w3-text-red"></i>
+                  </td>
+                  <td>
+                    {% raw %}{{wordData.pos}}{% endraw %}
+                    <i ng-if="!wordData.pos" class="fa fa-times w3-text-red"></i>
+                  </td>
+                  <td>
+                    {% raw %}{{wordData.pos_context}}{% endraw %}
+                    <i ng-if="!wordData.pos" class="fa fa-times w3-text-red"></i>
+                  </td>
+                  <td>
+                    {% raw %}{{wordData.dependency_type}}{% endraw %}
+                    <i ng-if="!wordData.dependency_type" class="fa fa-times w3-text-red"></i>
+                  </td>
+                  <td>
+                    {% raw %}{{wordData.entity_type}}{% endraw %}
+                    <i ng-if="!wordData.entity_type" class="fa fa-times w3-text-red"></i>
+                  </td>
+                  <td>
+                    <ul class="w3-ul">
+                      <li ng-repeat="synonym in wordData.synonyms">{% raw %}{{synonym}}{% endraw %}</li>
+                    </ul>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+
+          <!-- --------alerts------------ -->
+          <div class="alerts w3-padding ">
+            <div class="w3-panel w3-red navy-border-3 w3-border-white no-query">
+              <h4></h4>
+              <p class="w3-center">Failed to load search results query. This may be caused by an error in our side. Query analysis retrieves linguistic features of your query in English. **Only English as language is
+                supported.</p>
+            </div>
+          </div>
+          <div class="w3-panel w3-red navy-border-3 w3-border-white error">
+            <h4></h4>
+            <p class="w3-center">Failed to load queries analysis. This may be caused by poor internet connections, errors on our side. Try closing the pop-up and open it agin to retry feching queries analysis.</p>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- modal for present search settins -->
+      <div class="w3-modal w3-animate-opacity single-present-settings-modal">
+        <div class="w3-modal-content w3-card-4 w3-light-grey w3-text-blue">
+          <div class="w3-bar">
+            <div class="w3-bar-item w3-button w3-hover-red w3-right" onclick="$(this).parents('.w3-modal').hide()">
+              <i class="fa fa-times w3-xlarge"></i>
+            </div>
+          </div>
+          <div class="w3-center">
+            <h4>Search results settings</h4>
+          </div>
+          <form name="searchSettinsForm" class="w3-container">
+
+            <label class="w3-text-blue"><b>Minimum relevance</b></label>
+            <input class="w3-input w3-border min-relevance" name="minRelevance" ng-model="minRelevance" type="number" ng-value="{% raw %}{{dataMap.singlePresentSettings.minRelevance}}{% endraw %}" min="1" max="100" required>
+
+            <label class="w3-text-blue"><b>Maximum results</b></label>
+            <input class="w3-input w3-border max-results" type="number" ng-value="{% raw %}{{dataMap.singlePresentSettings.maxResults}}{% endraw %}" name="maxResults" ng-model="maxResults" min="1" max="1000000" required>
+
+            <label name="option" class="w3-text-blue"><b>Results per view</b></label>
+            <select class="w3-select view-results" name="viewResults">
+              <option ng-value="item" ng-repeat="item in [1,2,4,6,8,10]" ng-selected="dataMap.singlePresentSettings.viewResults === item">{% raw %}{{item}}{% endraw %}</option>
+            </select>
+
+            <label class="w3-text-blue w3-hide"><b>Search all resources</b></label>
+            <input class="w3-check w3-margin-left all-resources w3-hide" type="checkbox" ng-checked={% raw %}{{dataMap.singlePresentSettings.allSources}}{% endraw %}><br>
+
+
+            <label class="w3-text-blue"><b>First results only</b></label>
+            <input class="w3-check w3-margin-left first-results" type="checkbox" ng-checked="{% raw %}{{dataMap.singlePresentSettings.firstOnly}}{% endraw %}">
+
+            <div class="w3-padding w3-center">
+              <input class="w3-btn w3-blue" type="submit" value="Submit"
+                ng-click="updateSettings('singlePresentSettings',  (searchSettinsForm.maxResults.$valid || !searchSettinsForm.maxResults.$dirty) && (searchSettinsForm.minRelevance.$valid || !searchSettinsForm.minRelevance.$dirty))">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- future single modal -->
+<div id="single-future-modals">
+  <!-- modal for showing future knowledges/resources data-->
+  <div class="w3-modal w3-display-container w3-animate-opacity knowledges-future-data-modal">
+    <div class="w3-modal-content w3-card-4 w3-khaki">
+      <div class="w3-bar">
+        <div class="w3-bar-item w3-button w3-right w3-hover-red" onclick="$(this).parents('.w3-modal').hide()">
+          <i class="fa fa-times w3-xlarge"></i>
+        </div>
+      </div>
+
+      <!-- contents -->
+      <div class="w3-padding contents" ng-show="dataMap.singleFutureResourcesSources.length > 0">
+        <h4 class="w3-center">Search ready resources</h4>
+        <hr>
+        <table class='w3-table-all w3-hoverable w3-centered'>
+          <thead>
+            <tr class="w3-green">
+              <th>Index</th>
+              <th>Name</th>
+              <th>Type</th>
+              <th>processed</th>
+              <th>length(char)</th>
+              <th>length(words)</th>
+            </tr>
+          </thead>
+          <tr ng-repeat="sourceData in dataMap.singleFutureResourcesSources">
+            <td>{% raw %}{{ $index + 1 }}{% endraw %}</td>
+            <td>{% raw %}{{ sourceData.source }}{% endraw %}</td>
+            <td>{% raw %}{{ sourceData.type }}{% endraw %}</td>
+            <td>
+              <i ng-if="sourceData.isProcessed" class='fa fa-check w3-text-green'></i>
+              <i ng-if="!sourceData.isProcessed" class="fa fa-times w3-text-red"></i>
+            </td>
+            <td>{% raw %}{{ sourceData.charLength }}{% endraw %}</td>
+            <td>{% raw %}{{ sourceData.wordsLength }}{% endraw %}</td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- --------alerts------------ -->
+      <div class="alerts w3-padding">
+        <div class="w3-panel w3-margin alert-one w3-red navy-border-3 w3-border-white" ng-show="dataMap.singleFutureResourcesSources.length == 0">
+          <h4></h4>
+          <p class="w3-center">Currently, there are no resources that can be used for performing a search. Visit resources section, load and submit resources to be searched. **Ready resources and their data will appear here</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- modal for future query analysis -->
+  <div class="w3-modal w3-animate-opacity single-future-query-analysis-modal">
+    <div class="loader"></div>
+    <div class="w3-modal-content w3-khaki w3-card-4" style="min-height: 50vh;">
+      <div class="w3-bar">
+        <div class="w3-bar-item w3-button w3-hover-red w3-right" onclick="$(this).parents('.w3-modal').hide()">
+          <i class="fa fa-times w3-xlarge"></i>
+        </div>
+      </div>
+
+      <!-- --------contents------------ -->
+      <div class="w3-padding contents">
+        <h3 class="w3-center">Search query analysis</h3>
+        <hr class="w3-large">
+        <div ng-repeat="(query, data) in dataMap.singleFutureQueriesAnalysis">
+          <h5 class="w3-center w3-padding w3-yellow" ng-bind-html="data.queryTextHihlihted"></h5>
+          <div>
+            <strong>**</strong>Bolded words(<i>{% raw %}{{data.keywords.length}}{% endraw %}</i>) represent
+            <i>search keywords</i><br>
+            <strong>**</strong>The <i>search engine</i> is keywords based<br>
+          </div>
+          <table class='w3-table-all w3-margin-top w3-hoverable w3-centered'>
+            <thead>
+              <tr class="w3-green">
+                <th>Index</th>
+                <th>Word</th>
+                <th>Is keyword</th>
+                <th>Is Stop word</th>
+                <th>Part of speech</th>
+                <th>Part of speech(context)</th>
+                <th>Dependency type</th>
+                <th>Entity type</th>
+                <th>Synonyms</th>
+              </tr>
+            </thead>
+            <tr ng-repeat="wordData in data.wordsData">
+              <td>{% raw %}{{$index + 1}}{% endraw %}</td>
+              <td>
+                <strong ng-if="data.keywords.includes(wordData.word)">{% raw %}{{wordData.word}}{% endraw %}</strong>
+                <span ng-if="!data.keywords.includes(wordData.word)">{% raw %}{{wordData.word}}{% endraw %}</span>
+              </td>
+              <td>
+                <i ng-if="wordData.is_keyword" class='fa fa-check w3-text-green'></i>
+                <i ng-if="!wordData.is_keyword" class="fa fa-times w3-text-red"></i>
+              </td>
+              <td>
+                <i ng-if="wordData.is_stop" class='fa fa-check w3-text-green'></i>
+                <i ng-if="!wordData.is_stop" class="fa fa-times w3-text-red"></i>
+              </td>
+              <td>
+                {% raw %}{{wordData.pos}}{% endraw %}
+                <i ng-if="!wordData.pos" class="fa fa-times w3-text-red"></i>
+              </td>
+              <td>
+                {% raw %}{{wordData.pos_context}}{% endraw %}
+                <i ng-if="!wordData.pos" class="fa fa-times w3-text-red"></i>
+              </td>
+              <td>
+                {% raw %}{{wordData.dependency_type}}{% endraw %}
+                <i ng-if="!wordData.dependency_type" class="fa fa-times w3-text-red"></i>
+              </td>
+              <td>
+                {% raw %}{{wordData.entity_type}}{% endraw %}
+                <i ng-if="!wordData.entity_type" class="fa fa-times w3-text-red"></i>
+              </td>
+              <td>
+                <ul class="w3-ul">
+                  <li ng-repeat="synonym in wordData.synonyms">{% raw %}{{synonym}}{% endraw %}</li>
+                </ul>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- --------alerts------------ -->
+      <div class="alerts w3-padding ">
+        <div class="w3-panel w3-red navy-border-3 w3-border-white no-query">
+          <h4></h4>
+          <p class="w3-center">Seems like no query was entered in the search field. To get query analysis, please enter your query in search field. Query analysis retrieves linguistic features of your query in English. **Only English as language is
+            supported.</p>
+        </div>
+      </div>
+      <div class="w3-panel w3-red navy-border-3 w3-border-white error">
+        <h4></h4>
+        <p class="w3-center">Failed to load queries analysis. This may be caused by poor internet connections, errors on our side. Try closing the pop-up and open it agin to retry feching queries analysis.</p>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- modal for future search settins -->
+  <div class="w3-modal w3-animate-opacity single-future-settings-modal">
+    <div class="w3-modal-content w3-card-4 w3-light-grey w3-text-blue">
+      <div class="w3-bar">
+        <div class="w3-bar-item w3-button w3-hover-red w3-right" onclick="$(this).parents('.w3-modal').hide()">
+          <i class="fa fa-times w3-xlarge"></i>
+        </div>
+      </div>
+      <div class="w3-center">
+        <h4>Search settings</h4>
+      </div>
+      <form name="searchSettinsForm" class="w3-container">
+
+        <label class="w3-text-blue"><b>Minimum relevance</b></label>
+        <input class="w3-input w3-border min-relevance" name="minRelevance" ng-model="minRelevance" type="number" ng-value="{% raw %}{{dataMap.singleFutureSettings.minRelevance}}{% endraw %}" min="1" max="100" required>
+
+        <label class="w3-text-blue"><b>Maximum results</b></label>
+        <input class="w3-input w3-border max-results" type="number" ng-value="{% raw %}{{dataMap.singleFutureSettings.maxResults}}{% endraw %}" name="maxResults" ng-model="maxResults" min="1" max="1000000" required>
+
+        <label name="option" class="w3-text-blue"><b>Results per view</b></label>
+        <select class="w3-select view-results" name="viewResults">
+          <option ng-value="item" ng-repeat="item in [1,2,4,6,8,10]" ng-selected="dataMap.singleFutureSettings.viewResults === item">{% raw %}{{item}}{% endraw %}</option>
+        </select>
+
+        <label class="w3-text-blue"><b>Search all resources</b></label>
+        <input class="w3-check w3-margin-left all-resources" type="checkbox" ng-checked={% raw %}{{dataMap.singleFutureSettings.allSources}}{% endraw %}><br>
+
+
+        <label class="w3-text-blue"><b>First results only</b></label>
+        <input class="w3-check w3-margin-left first-results" type="checkbox" ng-checked="{% raw %}{{dataMap.singleFutureSettings.firstOnly}}{% endraw %}">
+
+        <div class="w3-padding w3-center">
+          <input class="w3-btn w3-blue" type="submit" value="Submit"
+            ng-click="updateSettings('singleFutureSettings',  (searchSettinsForm.maxResults.$valid || !searchSettinsForm.maxResults.$dirty) && (searchSettinsForm.minRelevance.$valid || !searchSettinsForm.minRelevance.$dirty))">
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

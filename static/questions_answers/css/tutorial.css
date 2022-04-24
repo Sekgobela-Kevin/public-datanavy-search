@@ -1,0 +1,12 @@
+#tutorial-container img {
+  width: 100%;
+  max-width: 70%;
+}
+
+#tutorial-container .mod-max-size {
+  min-width: 80%;
+}
+
+#tutorial-container img, p{
+  border-radius: 10px;
+}

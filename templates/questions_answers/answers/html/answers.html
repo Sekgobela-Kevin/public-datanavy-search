@@ -1,0 +1,30 @@
+<div id="answers_enclosing_container" class="w3-card w3-margin-bottom">
+  <div>
+    <div class="w3-bar w3-border w3-blue section-bar">
+      <div class="w3-bar-item w3-button" onclick="showTab(this,'answers_single','answers_tabs')" title="Search single question at time">
+        <i class='fa fa-search nav-text w3-xlarge' style="font-size:30px"></i>
+        <span class="nav-text w3-large">Search</span>
+      </div>
+      <div class="w3-bar-item w3-button" onclick="showTab(this,'google_search','answers_tabs')" title="Google search">
+        <i class='fa fa-google nav-text w3-xlarge' style="font-size:30px"></i>
+        <span class="nav-text w3-large">Google</span>
+      </div>
+
+      <div class="w3-bar-item w3-right w3-text-black collapse" onclick="$('#answers-tabs-container, #answers-upload-nav-item').toggle();">
+        <i class='fa fa-chevron-circle-down nav-text w3-xlarge'></i>
+      </div>
+      <div class="w3-bar-item w3-right w3-text-black label">
+        <i class='fa fa-search nav-text w3-xlarge' style="font-size:30px"></i>
+        <span class="w3-large nav-text">Search</span>
+      </div>
+    </div>
+
+    <div id="answers-tabs-container" class="answers-tabs-bodies sections app-sections w3-pale-green" style="min-height: 600px">
+      <div id="answers_single" class="answers_tabs" ng-include="'static/questions_answers/answers/html/single.html'">
+      </div>
+      <div id="google_search" class="answers_tabs w3-hide">
+        {% include 'questions_answers/answers/html/explonavy.html' %}
+      </div>
+    </div>
+  </div>
+</div>

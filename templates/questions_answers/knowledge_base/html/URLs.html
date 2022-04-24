@@ -1,0 +1,58 @@
+<div class="w3-padding w3-margin-bottom">
+  <div id="knowledge_URLs_progress_bar" class="w3-hide">
+    <div class="w3-light-grey w3-display-bottom  w3-border outer">
+      <div class="w3-center w3-green fill" style="width:0; height:25px;">
+        <span class="w3-small w3-hide"></span>
+      </div>
+    </div>
+    <div class="w3-center w3-tiny text"></div>
+  </div>
+
+  <div id="knowledge-urls-alert" class="w3-margin-bottom">
+    <div class="w3-panel alert-one w3-blue navy-border-3 w3-border-white">
+      <h4></h4>
+      <p class="w3-center"></p>
+    </div>
+    <div class="w3-panel alert-two w3-yellow navy-border-3 w3-border-white w3-hide">
+      <h4></h4>
+      <p class="w3-center">Theres a limit on webpages that can beloaded and submited</p>
+    </div>
+  </div>
+
+
+  <div class="w3-light-gray navy-border-2 w3-round">
+    <input type="url" id="knowledge_URLs_input" class="w3-input w3-border" placeholder="Enter hyperlink here" />
+    <div class="w3-center w3-padding">
+      <button id="knowledge_URL_adding_button" class="w3-button w3-xlarge w3-round w3-deep-orange">Add</button>
+      <button id="knowledge_URL_submit" type="button" class="w3-display-container
+       w3-button w3-xlarge w3-green w3-round">
+        <span>Submit</span>
+        <!--<i class="fa fa-circle-o-notch w3-display-middle w3-text-black w3-xlarge"></i>-->
+      </button>
+    </div>
+  </div>
+
+  <div id="knowledge_URLs_preview_container" class="w3-padding w3-margin-top w3-light-gray navy-border-2 w3-round">
+    <div id="knowledge_URLs_preview" style="max-heightX:500px; overflow: auto;">
+      <div class="w3-brown w3-margin-bottom w3-round" w3-repeat="URLsKnowledgeData">
+        <div class="w3-bar w3-border-bottom">
+          <div class="w3-bar-item w3-xlarge">
+            {% raw %}{{readyStateIcon}}{% endraw %}
+          </div>
+          <div class="w3-bar-item w3-xlarge"
+            onclick="knowledgeURLsDisplay.computeActiveState('{% raw %}{{URL}}{% endraw %}')">
+            {% raw %}{{statusCheckBoxIcon}}{% endraw %}
+          </div>
+          <div class="w3-bar-item w3-button w3-xlarge w3-hover-red w3-right" title="Remove resource"
+            onclick="knowledgeURLsDisplay.removeByIndex({% raw %}{{index}}{% endraw %})">
+            <i class="fa fa-times"></i>
+          </div>
+        </div>
+        <div class="w3-padding" style="word-wrap: break-word; max-height:100px; overflow: auto;">
+          <a href="{% raw %}{{URL}}{% endraw %}">{% raw %}{{URL}}{% endraw %}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

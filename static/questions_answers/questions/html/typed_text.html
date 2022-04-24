@@ -1,0 +1,42 @@
+<div class="w3-padding w3-margin-bottom">
+  <div id="questions-typed-alert">
+    <div class="w3-panel alert-one w3-blue navy-border-3 w3-border-white">
+      <h4></h4>
+      <p class="w3-center">Enter search queries to be used for multiple searches in search results section</p>
+    </div>
+    <div class="w3-panel alert-two w3-yellow navy-border-3 w3-border-white w3-hide">
+      <h4></h4>
+      <p class="w3-center">Search queries are optional and are only used in multiple searches. Its not recommended to use multiple searches, most of the time you should use single search.</p>
+    </div>
+  </div>
+
+  <div id="questions_text_preview_container" class="w3-padding w3-margin-bottom w3-light-gray navy-border-2 w3-round">
+    <div id="questions_text_preview" style="max-height:400px; overflow: auto;">
+      <ul class="w3-ul w3-hoverable" w3-repeat="typedQuestionsData">
+        <li class="w3-brown w3-margin-bottom w3-round">
+          <div class="w3-bar w3-border-bottom">
+            <div class="w3-bar-item w3-center" onclick="questionsTypedTextDisplay.computeActiveState('{{fullText}}')">{{statusCheckBoxIcon}}</div>
+            <span class="w3-bar-item w3-center">{{length}}</span>
+            <i class="fa fa-times w3-button w3-right  w3-bar-item" onclick="questionsTypedTextDisplay.removeByIndex({{index}})"></i>
+          </div>
+          <div style="word-wrap: break-word; max-height:100px; overflow: auto;">
+            {{fullText}}
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="questions_type_init">
+
+  </div>
+  <div class="w3-light-gray navy-border-2 w3-round">
+    <input type="text" id="questions_type_text_input" class="w3-input w3-border w3-round-small" placeholder="Enter question here!" style="resize: none;" max="300"/>
+    <div class="w3-center w3-padding">
+      <button id="questions_adding_button" class="w3-button w3-deep-orange w3-xlarge w3-round">Add</button>
+    </div>
+  </div>
+
+  <script src="/static/questions_answers/questions/javascript/typed_text.js">
+  </script>
+</div>

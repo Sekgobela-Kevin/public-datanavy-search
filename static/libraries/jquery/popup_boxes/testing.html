@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>jQuery UI Dialog functionality</title>
+  <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+  <!-- CSS -->
+  <style>
+    .ui-widget-header,
+    .ui-state-default,
+    ui-button {
+      background: #b9cd6d;
+      border: 1px solid #b9cd6d;
+      color: #FFFFFF;
+      font-weight: bold;
+    }
+  </style>
+
+  <!-- Javascript -->
+  <script>
+  function showAlert(title, body, modal=false){
+    $('<div class="top-stick"></div>').dialog({
+
+        title: title,
+        open: function () {
+            $(this).html(body);
+        },
+    });
+  }
+  </script>
+</head>
+
+<input id="btn" type="button" value="Click Me" onclick="showAlert('ssss','dfdd')" />
+
+</html>

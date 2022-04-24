@@ -1,0 +1,71 @@
+<div class="w3-content w3-display-container" style="height:70vm%">
+
+    <div class="w3-display-container mySlides">
+      <img src="https://image.shutterstock.com/image-photo/data-search-technology-engine-optimization-600w-1786956488.jpg" style="width:100%">
+      <div class="w3-display-topleft w3-large w3-container w3-padding-16 w3-black w3-margin">
+        Search files and webpages of your choice
+      </div>
+    </div>
+
+    <div class="w3-display-container mySlides" style="width:100%">
+      <img src="https://www.w3schools.com/w3css/img_snowtops.jpg" style="width:100%">
+      <div class="w3-display-topleft w3-large w3-container w3-padding-16 w3-black w3-margin">
+        Step 1: Upload resourses(files, webpages, etc) to search
+      </div>
+    </div>
+
+    <div class="w3-display-container mySlides">
+      <img src="https://www.w3schools.com/w3css/img_lights.jpg" style="width:100%">
+      <div class="w3-display-topleft w3-large w3-container w3-padding-16 w3-black w3-margin">
+        Step 2: Ensure resourses are successfully uploaded and ready for search
+      </div>
+    </div>
+
+    <div class="w3-display-container mySlides">
+      <img src="https://www.w3schools.com/w3css/img_mountains.jpg" style="width:100%">
+      <div class="w3-display-topleft w3-large w3-container w3-padding-16 w3-black w3-margin">
+        Step 3: Navigate to search section
+      </div>
+    </div>
+
+    <div class="w3-display-container mySlides">
+      <img src="https://www.w3schools.com/w3css/img_forest.jpg" style="width:100%">
+      <div class="w3-display-topleft w3-large w3-container w3-padding-16 w3-black w3-margin">
+        Step 4: Start searching and analyse search results
+      </div>
+    </div>
+
+    <button class="w3-button w3-display-left w3-black" onclick="plusDivs(-1)">&#10094;</button>
+    <button class="w3-button w3-display-right w3-black" onclick="plusDivs(1)">&#10095;</button>
+
+</div>
+
+<script>
+var slideIndex = 1;
+showDivs(slideIndex);
+
+function plusDivs(n) {
+  showDivs(slideIndex += n);
+}
+
+function showDivs(n) {
+  var i;
+  var x = document.getElementsByClassName("mySlides");
+  if (n > x.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = x.length}
+  for (i = 0; i < x.length; i++) {
+     x[i].style.display = "none";
+  }
+  x[slideIndex-1].style.display = "block";
+
+  //scroll down to make text visbile
+  var introAlert = document.getElementById("intro");
+  console.assert(introAlert, "element of #intro not found");
+  /*if(slideIndex-1 != 0){
+    introAlert.scrollTop = introAlert.scrollHeight;
+  }
+  else{
+    introAlert.scrollTop = 0;
+  }*/
+}
+</script>

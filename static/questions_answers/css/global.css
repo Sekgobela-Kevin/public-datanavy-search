@@ -1,0 +1,81 @@
+.navy-border-2 {
+  border-style: solid;
+  border-width: 2px;
+}
+
+.navy-border-3 {
+  border-style: solid;
+  border-width: 3px;
+}
+
+.top-stick {
+  position: -webkit-sticky;
+  /* Safari */
+  position: sticky;
+  top: 0;
+  z-index: 5
+}
+
+.nav-text {
+  line-height: 55%;
+  vertical-align: middle;
+}
+
+
+.menu {
+  display: flex;
+  align-items: center;
+}
+
+.navy-respect-aspect {
+  aspect-ratio: 1 / 1;
+}
+
+
+@media only screen and (max-device-width: 1000px) {
+
+  body,
+  #google_search {
+    zoom: 160%;
+  }
+
+  #google_search {
+    zoom: 120%;
+  }
+}
+
+/*trick to create bottom footer
+body{
+  min-height: 100vh;
+  margin: 0;
+
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+header{
+  min-height:50px;
+  background:lightcyan;
+}
+
+footer{
+  min-height:50px;
+  background:PapayaWhip;
+}
+trick for bottom footer ends here*/
+
+.css-green {
+  background-color: green;
+}
+
+.section-bar {
+  background-color: green;
+}
+
+.sections {
+  min-height: 500px;
+}
+
+.app-sections {
+  min-height: 500px !important;
+}
