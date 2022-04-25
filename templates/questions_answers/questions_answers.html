@@ -185,8 +185,8 @@
     <div id="intro" class="w3-modal" style="z-index: 2;">
       <div class="w3-modal-content w3-border-white navy-border-2">
         <div class="w3-bar w3-border-bottom w3-light-blue">
-          <div class="w3-bar-item w3-button" onclick="showTab(this,'guide-videos','guide-item')">Video</div>
           <div class="w3-bar-item w3-button" onclick="showTab(this,'guide-slides','guide-item')">Slides</div>
+          <div class="w3-bar-item w3-button" onclick="showTab(this,'guide-videos','guide-item')">Video</div>
           <div class="w3-bar-item w3-button w3-right w3-hover-red exit">
               <i class="fa fa-times"></i>
           </div>
@@ -195,10 +195,10 @@
           <!--For the first time using <strong>Datanavy search</strong>, please first
           read datanavy search short <strong>Guide</strong> located at top
           right corner of screen.-->
-          <div id="guide-slides" class="w3-center guide-item w3-hide">
+          <div id="guide-slides" class="w3-center guide-item">
               {% include 'guide_slides.html' %}
           </div>
-          <div id="guide-videos" class="w3-center guide-item">
+          <div id="guide-videos" class="w3-center guide-item  w3-hide">
               {% include 'guide_videos.html' %}
           </div>
         </div>
