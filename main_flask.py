@@ -71,7 +71,8 @@ def teardown_request_func(error=None):
 
 @app.route('/', methods=["GET"])
 def home():
-    return render_template('/questions_answers/questions_answers.html', js_files_folder=config.js_files_folder)
+    return render_template('/questions_answers/questions_answers.html', js_files_folder=config.js_files_folder,
+    guide_video_path=config.guide_video_path)
 
 @app.route('/sessions/set_session/<session_value>', methods=["GET"])
 def set_session(session_value):
